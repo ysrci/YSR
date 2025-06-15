@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yassir - Cybersecurity Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0f0f0f; /* تغيير إلى أسود داكن */
+            --bg-card: #121212; /* تغيير إلى أسود داكن */
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #006633; /* تغيير إلى أخضر داكن */
+            --accent-glow: rgba(0, 102, 51, 0.3); /* تعديل لتتناسب مع الأخضر الداكن */
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --cyber-gradient: linear-gradient(45deg, #006633, #003319, #001a0d); /* تغيير إلى ألوان خضراء داكنة */
+        }
+
+        .light-theme {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --accent: #007bff;
+            --accent-glow: rgba(0, 123, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.4s ease;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--bg-primary);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 25% 25%, var(--accent-glow) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 75%, rgba(0, 102, 51, 0.1) 0%, transparent 50%); /* تعديل اللون */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(15, 15, 15, 0.9); /* تعديل اللون */
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .light-theme header {
+            background: rgba(248, 249, 250, 0.9);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--cyber-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px var(--accent-glow);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--cyber-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px var(--accent-glow)); }
+            to { filter: drop-shadow(0 0 30px var(--accent-glow)); }
+        }
+
+        .hero h2 {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .skills {
+            margin: 3rem 0;
+        }
+
+        .skill-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: var(--cyber-gradient);
+        }
+
+        .skill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-card);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--accent-glow);
+        }
+
+        /* Skill Description Modal */
+        .skill-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: var(--cyber-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .modal-content .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-content .close-btn:hover {
+            color: var(--accent);
+        }
+
+        .skill-modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--cyber-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-btn:hover::before {
+            left: 0;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px var(--accent-glow);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .skills {
+                gap: 0.5rem;
+            }
+            
+            .skill-tag {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .modal-content h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Cyberpunk Effects */
+        .cyber-border {
+            position: relative;
+        }
+
+        .cyber-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--cyber-gradient);
+            border-radius: inherit;
+            z-index: -1;
+            animation: cyber-pulse 3s linear infinite;
+        }
+
+        .tech-border {
+            position: relative;
+        }
+
+        .tech-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #006633, #003319, #001a0d);
+            border-radius: inherit;
+            z-index: -1;
+            animation: tech-pulse 2.5s linear infinite;
+        }
+
+        @keyframes cyber-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes tech-pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <div class="nav-container">
+            <div class="logo">YASSIR</div>
+            <div class="nav-buttons">
+                <button class="btn" id="themeToggle" data-en="Light Mode" data-ar="الوضع الفاتح">Light Mode</button>
+                <button class="btn" id="langToggle" data-en="العربية" data-ar="English">العربية</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1 id="name" data-en="YASSIR" data-ar="ياسر">YASSIR</h1>
+            <h2 id="title" data-en="Software Engineering Student & Cybersecurity enthusiast" data-ar="طالب هندسة البرمجيات ومتحمس للأمن السيبراني">Software Engineering Student & Cybersecurity Enthusiast</h2>
+            
+            <div class="skills">
+                <div class="skill-section">
+                    <h3 class="section-title" data-en="Cybersecurity Expertise" data-ar="خبرة الأمن السيبراني">Cybersecurity Expertise</h3>
+                    <div class="skill-group">
+                        <div class="skill-tag cyber-border" 
+                             data-en="Offensive Security" 
+                             data-ar="الأمن الهجومي"
+                             data-desc-en="Focuses on identifying vulnerabilities in systems by simulating attacks. Includes penetration testing, ethical hacking, and red teaming."
+                             data-desc-ar="يركز على تحديد الثغرات في الأنظمة عن طريق محاكاة الهجمات. يشمل اختبار الاختراق، القرصنة الأخلاقية، وفريق الأحمر.">
+                            Offensive Security
+                        </div>
+                        <div class="skill-tag cyber-border" 
+                             data-en="Defensive Security" 
+                             data-ar="الأمن الدفاعي"
+                             data-desc-en="Involves protecting systems from cyber threats. Includes firewall configuration, intrusion detection, and blue team operations."
+                             data-desc-ar="يتضمن حماية الأنظمة من التهديدات السيبرانية. يشمل تكوين الجدران النارية، كشف التسلل، وعمليات فريق الأزرق.">
+                            Defensive Security
+                        </div>
+                        <div class="skill-tag cyber-border" 
+                             data-en="Vulnerability Discovery" 
+                             data-ar="اكتشاف الثغرات"
+                             data-desc-en="The process of identifying and classifying security weaknesses in systems before they can be exploited."
+                             data-desc-ar="عملية تحديد وتصنيف نقاط الضعف الأمنية في الأنظمة قبل استغلالها.">
+                            Vulnerability Discovery
+                        </div>
+                        <div class="skill-tag cyber-border" 
+                             data-en="Penetration Testing" 
+                             data-ar="اختبار الاختراق"
+                             data-desc-en="Authorized simulated cyberattack to evaluate system security. Helps identify vulnerabilities that could be exploited."
+                             data-desc-ar="هجوم إلكتروني محاكى مرخص لتقييم أمن النظام. يساعد في تحديد الثغرات التي يمكن استغلالها.">
+                            Penetration Testing
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-section">
+                    <h3 class="section-title" data-en="Programming & Tools" data-ar="البرمجة والأدوات">Programming & Tools</h3>
+                    <div class="skill-group">
+                        <div class="skill-tag tech-border" 
+                             data-en="Python" 
+                             data-ar="بايثون"
+                             data-desc-en="Powerful scripting language widely used in cybersecurity for automation, tool development, and data analysis."
+                             data-desc-ar="لغة برمجة قوية تستخدم على نطاق واسع في الأمن السيبراني للأتمتة، تطوير الأدوات، وتحليل البيانات.">
+                            Python
+                        </div>
+                        <div class="skill-tag tech-border" 
+                             data-en="C/C++" 
+                             data-ar="C/C++"
+                             data-desc-en="Low-level languages essential for understanding system internals, exploit development, and performance-critical applications."
+                             data-desc-ar="لغات منخفضة المستوى ضرورية لفهم البنية الداخلية للنظام، تطوير الثغرات، والتطبيقات الحساسة للأداء.">
+                            C/C++
+                        </div>
+                        <div class="skill-tag tech-border" 
+                             data-en="Git" 
+                             data-ar="جيت"
+                             data-desc-en="Version control system crucial for collaborative coding and maintaining secure development workflows."
+                             data-desc-ar="نظام تحكم في الإصدارات ضروري للبرمجة التعاونية والحفاظ على سير عمل تطوير آمن.">
+                            Git
+                        </div>
+                        <div class="skill-tag tech-border" 
+                             data-en="Shell Scripting" 
+                             data-ar="سكريبت الشيل"
+                             data-desc-en="Automating tasks in Unix/Linux environments, essential for system administration and security tooling."
+                             data-desc-ar="أتمتة المهام في بيئات يونكس/لينكس، ضرورية لإدارة النظام وأدوات الأمان.">
+                            Shell Scripting
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Skill Description Modal -->
+    <div class="skill-modal" id="skillModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <h3 id="modalTitle">Skill Title</h3>
+            <p id="modalDescription">Skill description will appear here...</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://youtube.com/@pool1337?si=R2V3k32HQ3R2eecS" class="social-btn" target="_blank" data-en="YouTube" data-ar="يوتيوب">YouTube</a>
+            <a href="https://www.instagram.com/ysrci?igsh=MWpuaXFmM2Z1MGxmYw==" class="social-btn" target="_blank" data-en="Instagram" data-ar="انستغرام">Instagram</a>
+        </div>
+        <p id="footer-text" data-en="𝓜𝔂 𝓲𝓷𝓽𝓾𝓲𝓽𝓲𝓸𝓷 𝓰𝓾𝓲𝓭𝓮𝓼 𝓶𝓮 𝓶𝓸𝓻𝓮 𝓽𝓱𝓪𝓷 𝓵𝓸𝓰𝓲𝓬 𝓭𝓸𝓮𝓼" data-ar="𝓜𝔂 𝓲𝓷𝓽𝓾𝓲𝓽𝓲𝓸𝓷 𝓰𝓾𝓲𝓭𝓮𝓼 𝓶𝓮 𝓶𝓸𝓻𝓮 𝓽𝓱𝓪𝓷 𝓵𝓸𝓰𝓲𝓬 𝓭𝓸𝓮𝓼">𝓜𝔂 𝓲𝓷𝓽𝓾𝓲𝓽𝓲𝓸𝓷 𝓰𝓾𝓲𝓭𝓮𝓼 𝓶𝓮 𝓶𝓸𝓻𝓮 𝓽𝓱𝓪𝓷 𝓵𝓸𝓰𝓲𝓬 𝓭𝓸𝓮𝓼</p>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+        let currentTheme = 'dark';
+
+        // Theme Toggle
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            updateUI();
+        });
+
+        // Language Toggle
+        document.getElementById('langToggle').addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            
+            // Update text direction
+            document.body.style.direction = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update all elements with data attributes
+            const elements = document.querySelectorAll('[data-en][data-ar]');
+            elements.forEach(element => {
+                element.textContent = element.getAttribute(`data-${currentLang}`);
+            });
+            
+            updateUI();
+        });
+
+        // Skill Modal Functionality
+        const skillModal = document.getElementById('skillModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeModal = document.getElementById('closeModal');
+
+        // Add click event to all skill tags
+        document.querySelectorAll('.skill-tag').forEach(skill => {
+            skill.addEventListener('click', function() {
+                const title = this.getAttribute(`data-${currentLang}`);
+                const description = this.getAttribute(`data-desc-${currentLang}`);
+                
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                
+                skillModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            skillModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        skillModal.addEventListener('click', function(e) {
+            if (e.target === skillModal) {
+                skillModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        function updateUI() {
+            const themeBtn = document.getElementById('themeToggle');
+            const langBtn = document.getElementById('langToggle');
+            
+            // Update button texts
+            if (currentLang === 'en') {
+                themeBtn.textContent = currentTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+                langBtn.textContent = 'العربية';
+            } else {
+                themeBtn.textContent = currentTheme === 'dark' ? 'الوضع الفاتح' : 'الوضع المظلم';
+                langBtn.textContent = 'English';
+            }
+        }
+
+        // Add smooth scrolling and intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe skill tags for staggered animation
+        document.querySelectorAll('.skill-tag').forEach((tag, index) => {
+            tag.style.opacity = '0';
+            tag.style.transform = 'translateY(20px)';
+            tag.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(tag);
+        });
+
+        // Observe section titles
+        document.querySelectorAll('.section-title').forEach((title, index) => {
+            title.style.opacity = '0';
+            title.style.transform = 'translateY(30px)';
+            title.style.transition = `all 0.8s ease ${index * 0.2}s`;
+            observer.observe(title);
+        });
+
+        // Initialize
+        updateUI();
+    </script>
+</body>
+</html>
